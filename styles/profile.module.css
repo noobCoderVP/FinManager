@@ -1,0 +1,51 @@
+.container {
+    max-width: 600px;
+    min-width: 400px;
+    width: 100%;
+    margin: 10px auto;
+    background-color: rgb(67, 67, 67);
+}
+
+.container section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    padding: 1rem;
+    justify-content: space-evenly;
+}
+
+.container :is(label, span) {
+    color: aqua;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.container input {
+    background-color: lightgoldenrodyellow;
+    padding: 0.25rem;
+    width: 40ch;
+}
+
+.details {
+    flex-grow: 1;
+}
+
+.wallet {
+    background-color: rgb(255, 224, 229);
+}
+
+.wallet > div {
+    width: 100%;
+    font-size: large;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.wallet > div > div {
+    width: 150px;
+    height: 150px;
+    background-color: whitesmoke;
+}

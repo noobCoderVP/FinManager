@@ -1,0 +1,26 @@
+.container {
+    background: rgb(60, 60, 60);
+    color: lightgoldenrodyellow;
+    margin: auto;
+    max-width: 700px;
+}
+
+.container h1 {
+    font-size: 1.5rem;
+    background-color: black;
+    color: aqua;
+    padding: 1rem;
+    text-decoration: underline solid aqua;
+}
+
+.card {
+    background-color: azure;
+    color: black;
+    padding: 1rem;
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    border-radius: 5px;
+    height: 150px;
+}
