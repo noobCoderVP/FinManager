@@ -1,7 +1,9 @@
 import React from "react";
+import { useRouter } from "next/router";
 
-export function useBreadcrumb(URL) {
-    const segments = URL.split("/");
+export function useBreadCrumb() {
+    const router = useRouter();
+    const segments = router.route.split("/");
     let finals = [];
     finals.push("Home");
     for (let i of segments) {
@@ -9,7 +11,7 @@ export function useBreadcrumb(URL) {
     }
 
     finals = finals.map((element, index) => (
-        <span key={index} className="text-white">
+        <span key={index} className="dark:text-white text-black">
             {element}
         </span>
     ));

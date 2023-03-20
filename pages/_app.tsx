@@ -14,7 +14,7 @@ import "@fontsource/roboto/700.css";
 
 // breadcrumbs
 import Breadcrump from "components/utils/Breadcrump";
-import { useBreadcrumb } from "hooks/useBreadcrumb";
+import { useBreadCrumb } from "hooks/useBreadcrumb";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
 import Link from "next/link";
@@ -28,38 +28,21 @@ import "aos/dist/aos.css";
 export default function App({ Component, pageProps }: AppProps) {
     const [dark, setdark] = useState(false);
     const [loading, setloading] = useState(true);
-    let [bread, setbread] = useState<string[]>([]);
+    const bread = useBreadCrumb();
 
     const ModeHandler = () => {
-        if (localStorage.getItem("color-theme")) {
-            if (localStorage.getItem("color-theme") === "light") {
-                document.documentElement.classList.add("dark");
-                localStorage.setItem("color-theme", "dark");
-                setdark(true);
-            } else {
-                document.documentElement.classList.remove("dark");
-                localStorage.setItem("color-theme", "light");
-                setdark(false);
-            }
-
-            // if NOT set via local storage previously
+        const html = document.querySelector("html");
+        if (dark == true) {
+            html.classList.remove("dark");
         } else {
-            if (document.documentElement.classList.contains("dark")) {
-                document.documentElement.classList.remove("dark");
-                localStorage.setItem("color-theme", "light");
-                setdark(false);
-            } else {
-                document.documentElement.classList.add("dark");
-                localStorage.setItem("color-theme", "dark");
-                setdark(true);
-            }
+            html.classList.add("dark");
         }
+        setdark(!dark);
     };
 
     useEffect(() => {
         AOS.init();
         setInterval(() => {
-            setbread(useBreadcrumb(location.href));
             setloading(false);
         }, 2000);
     }, []);
@@ -86,15 +69,21 @@ export default function App({ Component, pageProps }: AppProps) {
                 <div className="loader"></div>
             ) : (
                 <main>
-                    <div className="bg-gray-800 px-4 py-2 text-white border-l-4 breadnav flex flex-row">
+                    <div className="bg-slate-400 dark:bg-gray-800 px-4 py-2 text-white border-l-4 breadnav flex flex-row">
                         <Breadcrump breadcrumbs={bread} />
                         <div
                             className="border-1 ml-auto mr-4"
                             onClick={ModeHandler}>
                             {dark ? (
-                                <LightModeIcon fontSize="medium" />
+                                <LightModeIcon
+                                    fontSize="medium"
+                                    color="inherit"
+                                />
                             ) : (
-                                <DarkModeIcon fontSize="medium" />
+                                <DarkModeIcon
+                                    fontSize="medium"
+                                    style={{ color: "black" }}
+                                />
                             )}
                         </div>
                     </div>

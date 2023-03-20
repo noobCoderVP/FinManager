@@ -6,7 +6,10 @@ function Breadcrump({ breadcrumbs }) {
     return (
         <Breadcrumbs
             separator={
-                <NavigateNextIcon fontSize="small" className="text-white" />
+                <NavigateNextIcon
+                    fontSize="medium"
+                    className="text-black dark:text-white"
+                />
             }
             aria-label="breadcrumb">
             {breadcrumbs}
