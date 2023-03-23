@@ -6,7 +6,14 @@ const nextConfig = {
         WEB_URL: "http://localhost:3000",
     },
     images: {
-        domains: ["https://finmanager-production.up.railway.app/"],
+        remotePatterns: [
+            {
+                protocol: "https",
+                hostname: "**",
+                port: "",
+                pathname: "**",
+            },
+        ],
     },
 };
 
