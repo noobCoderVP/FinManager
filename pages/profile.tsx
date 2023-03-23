@@ -24,6 +24,7 @@ export default function Profile() {
 
     const router = useRouter();
 
+    // update method
     const update = async () => {
         const details = await axios.get(
             `${process.env.BASE_URL}/user/${localStorage.getItem("email")}/`,
