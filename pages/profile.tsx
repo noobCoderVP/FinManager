@@ -24,29 +24,23 @@ export default function Profile() {
 
     const router = useRouter();
 
+    const update = async () => {
+        const details = await axios.get(
+            `${process.env.BASE_URL}/user/${localStorage.getItem("email")}/`,
+        );
+        setdetails(details.data.data[0]);
+        const wal = await axios.get(
+            `${process.env.BASE_URL}/wallet/${localStorage.getItem("email")}/`,
+        );
+        setwallet(wal.data.data[0]);
+    };
+
     useEffect(() => {
         if (!localStorage.getItem("email") && !localStorage.getItem("token")) {
             toast("Please register/login first!");
             router.push("/");
         }
-        axios
-            .get(
-                `${process.env.BASE_URL}/user/${localStorage.getItem(
-                    "email",
-                )}/`,
-            )
-            .then(result => {
-                setdetails(result.data.data[0]);
-            });
-        axios
-            .get(
-                `${process.env.BASE_URL}/wallet/${localStorage.getItem(
-                    "email",
-                )}/`,
-            )
-            .then(result => {
-                setwallet(result.data.data[0]);
-            });
+        update();
     }, []);
     return (
         <>
