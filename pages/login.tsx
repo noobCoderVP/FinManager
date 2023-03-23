@@ -22,7 +22,7 @@ const App: React.FC = () => {
             router.push(`/`);
             localStorage.setItem("email", values.email);
             localStorage.setItem("token", result.data.data[0]["access token"]);
-            location.href = process.env.WEB_URL + "/";
+            router.push("/");
             toast("Logged Successsfully!");
         }
     };
