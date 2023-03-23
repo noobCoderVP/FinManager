@@ -25,7 +25,7 @@ export default function Home() {
                 </div>
                 <div>
                     <Image
-                        src="../public/images/receipt.svg"
+                        src="/images/receipt.svg"
                         width={200}
                         height={200}
                         alt="money"
