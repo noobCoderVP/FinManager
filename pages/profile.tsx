@@ -34,13 +34,6 @@ export default function Profile() {
                 `${process.env.BASE_URL}/user/${localStorage.getItem(
                     "email",
                 )}/`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "token",
-                        )}`,
-                    },
-                },
             )
             .then(result => {
                 setdetails(result.data.data[0]);
@@ -50,13 +43,6 @@ export default function Profile() {
                 `${process.env.BASE_URL}/wallet/${localStorage.getItem(
                     "email",
                 )}/`,
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "token",
-                        )}`,
-                    },
-                },
             )
             .then(result => {
                 setwallet(result.data.data[0]);

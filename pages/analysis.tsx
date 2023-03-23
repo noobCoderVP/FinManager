@@ -28,13 +28,6 @@ function Analysis() {
                     `${process.env.BASE_URL}/transaction/${localStorage.getItem(
                         "email",
                     )}/`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem(
-                                "token",
-                            )}`,
-                        },
-                    },
                 )
                 .then(result => {
                     const transactions = result.data.data[0];

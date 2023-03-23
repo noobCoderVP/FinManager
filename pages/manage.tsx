@@ -25,17 +25,9 @@ export default function Manage() {
     const executeTransaction = async (id: string, amount: number) => {
         if (w.wallet.balance >= amount) {
             updateBalance(-amount);
-            await axios.put(
-                `${process.env.BASE_URL}/transaction/${id}/`,
-                { isComplete: true },
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            "token",
-                        )}`,
-                    },
-                },
-            );
+            await axios.put(`${process.env.BASE_URL}/transaction/${id}/`, {
+                isComplete: true,
+            });
             toast("Transaction Executed successfully!!");
             router.reload();
         } else {
@@ -64,11 +56,6 @@ export default function Manage() {
         const result = await axios.post(
             `${process.env.BASE_URL}/transaction/`,
             data,
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            },
         );
 
         if (result.data.code == 200) {
@@ -85,42 +72,22 @@ export default function Manage() {
     const updateBalance = async (balance: number) => {
         const wallet = await axios.get(
             `${process.env.BASE_URL}/wallet/${localStorage.getItem("email")}/`,
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            },
         );
         const bal = wallet.data.data[0].balance;
         const result = await axios.put(
             `${process.env.BASE_URL}/wallet/${localStorage.getItem("email")}/`,
             { balance: balance + bal },
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            },
         );
     };
 
     const updateDebt = async (debt: number) => {
         const wallet = await axios.get(
             `${process.env.BASE_URL}/wallet/${localStorage.getItem("email")}/`,
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            },
         );
         const bal = wallet.data.data[0].debt;
         const result = await axios.put(
             `${process.env.BASE_URL}/wallet/${localStorage.getItem("email")}/`,
             { debt: debt + bal },
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            },
         );
     };
     // transactions
@@ -145,13 +112,6 @@ export default function Manage() {
                     `${process.env.BASE_URL}/transaction/${localStorage.getItem(
                         "email",
                     )}/`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem(
-                                "token",
-                            )}`,
-                        },
-                    },
                 )
                 .then(result => {
                     const transactions = result.data.data[0];
@@ -171,13 +131,6 @@ export default function Manage() {
                     `${process.env.BASE_URL}/wallet/${localStorage.getItem(
                         "email",
                     )}/`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${localStorage.getItem(
-                                "token",
-                            )}`,
-                        },
-                    },
                 )
                 .then(result => {
                     setw({ wallet: result.data.data[0] });

@@ -14,15 +14,11 @@ function Help() {
         const timing = d.toISOString();
         const email = localStorage.getItem("email");
 
-        const result = await axios.post(
-            `${process.env.BASE_URL}/query/`,
-            { ...values, timing, email },
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-            },
-        );
+        const result = await axios.post(`${process.env.BASE_URL}/query/`, {
+            ...values,
+            timing,
+            email,
+        });
         console.log(result);
 
         if (result.data.code == 200) {
