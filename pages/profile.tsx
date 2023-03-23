@@ -28,15 +28,39 @@ export default function Profile() {
         if (!localStorage.getItem("email") && !localStorage.getItem("token")) {
             toast("Please register/login first!");
             router.push("/");
-        } else {
-            if (
-                !localStorage.getItem("email") &&
-                !localStorage.getItem("token")
-            ) {
-                toast("Please register/login first!");
-                router.push("/");
-            }
         }
+        axios
+            .get(
+                `${process.env.BASE_URL}/user/${localStorage.getItem(
+                    "email",
+                )}/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token",
+                        )}`,
+                    },
+                },
+            )
+            .then(result => {
+                setdetails(result.data.data[0]);
+            });
+        axios
+            .get(
+                `${process.env.BASE_URL}/wallet/${localStorage.getItem(
+                    "email",
+                )}/`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            "token",
+                        )}`,
+                    },
+                },
+            )
+            .then(result => {
+                setwallet(result.data.data[0]);
+            });
     }, []);
     return (
         <>
