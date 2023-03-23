@@ -2,23 +2,53 @@ import React, { useState } from "react";
 import { Button, Checkbox, Form, Input } from "antd";
 import { Radio } from "antd";
 import Head from "next/head";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const App: React.FC = () => {
     const [gender, setgender] = useState(true);
-    const onFinish = (values: any) => {
-        console.log("Success:", values);
+    const router = useRouter();
+
+    const onFinish = async (values: any) => {
+        const date = new Date();
+        const joinedAt = date.toISOString();
+        const email = values.email.toLowerCase();
+        const data = { ...values, gender, joinedAt, email };
+
+        const result = await axios.post(
+            `${process.env.BASE_URL}/user/register`,
+            data,
+        );
+
+        if (result.data.code == 403) {
+            toast("Email already registered!!");
+        } else {
+            const wallet = await axios.post(`${process.env.BASE_URL}/wallet/`, {
+                email,
+                balance: 0,
+                debt: 0,
+                limit: 1000,
+            });
+            localStorage.setItem("email", values.email);
+            localStorage.setItem("token", result.data.data[0]["access token"]);
+            router.push("/");
+            toast("Registered Successsfully!");
+        }
     };
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log("Failed:", errorInfo);
+        toast("Please fill the information!");
     };
 
     return (
         <>
             <Head>
-                <title>Finmanager</title>
+                <title>Register</title>
             </Head>
             <main className="bg-transparent h-min-72">
+                <ToastContainer />
                 <Form
                     className="m-auto mt-4 p-4 pt-8 rounded-xl dark:bg-gray-400 bg-gray-300"
                     name="basic"
@@ -51,6 +81,19 @@ const App: React.FC = () => {
                             },
                         ]}>
                         <Input type="email" placeholder="email" />
+                    </Form.Item>
+                    <Form.Item
+                        className="dark:text-white"
+                        label="Profession"
+                        name="profession"
+                        style={{ color: "white" }}
+                        rules={[
+                            {
+                                required: true,
+                                message: "Please input your profession!",
+                            },
+                        ]}>
+                        <Input type="text" placeholder="profession" />
                     </Form.Item>
 
                     <Form.Item

@@ -22,9 +22,10 @@
 }
 
 .container input {
-    background-color: lightgoldenrodyellow;
+    background-color: beige;
     padding: 0.25rem;
     width: 40ch;
+    padding: 0.5rem;
 }
 
 .details {

@@ -7,9 +7,13 @@ main {
     min-height: 80vh;
 }
 
+* {
+    transition: all 0.5s;
+}
+
 body {
     background-image: url("../public/images/background.jpg");
-    background-size: cover;
+    background-size: contain;
     background-position: fixed;
     overflow-x: hidden;
 }

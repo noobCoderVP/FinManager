@@ -1,7 +1,6 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Head from "next/head";
 import Navbar from "components/Navbar";
 import Footer from "components/Footer";
@@ -17,13 +16,16 @@ import Breadcrump from "components/utils/Breadcrump";
 import { useBreadCrumb } from "hooks/useBreadcrumb";
 import DarkModeIcon from "@mui/icons-material/DarkMode";
 import LightModeIcon from "@mui/icons-material/LightMode";
-import Link from "next/link";
 
 // clock
 
 // AOS
 import AOS from "aos";
 import "aos/dist/aos.css";
+
+// toaster
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App({ Component, pageProps }: AppProps) {
     const [dark, setdark] = useState(false);
@@ -64,6 +66,7 @@ export default function App({ Component, pageProps }: AppProps) {
                     content="width=device-width, initial-scale=1.0"
                 />
             </Head>
+            <ToastContainer />
             <Navbar />
             {loading ? (
                 <div className="loader"></div>
